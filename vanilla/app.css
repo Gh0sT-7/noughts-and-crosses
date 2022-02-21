@@ -1,0 +1,139 @@
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+body {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	/* background: linear-gradient(to top left, #753682 0%, #bf2e34 100%); */
+}
+
+.board {
+	align-content: center;
+	align-items: center;
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+	justify-content: center;
+	justify-items: center;
+}
+
+.cell.x::before,
+.cell.x::after,
+.cell.o::before {
+	background-color: black;
+}
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after,
+.board.o .cell:not(.x):not(.o):hover::before {
+	background-color: #999;
+}
+
+.cell {
+	align-items: center;
+	border: 1px solid black;
+	cursor: pointer;
+	display: flex;
+	height: 100px;
+	justify-content: center;
+	position: relative;
+	width: 100px;
+}
+
+/***************
+***** X Cell
+****************/
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after {
+	content: '';
+	height: 90%;
+	position: absolute;
+	width: 15px;
+}
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before {
+	transform: rotate(45deg);
+}
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::after {
+	transform: rotate(-45deg);
+}
+
+/***************
+***** O Cell
+****************/
+.cell.o::before,
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after {
+	border-radius: 50%;
+	content: '';
+	position: absolute;
+}
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before {
+	height: 90%;
+	width: 90%;
+}
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::after {
+	height: 60%;
+	width: 60%;
+	background-color: white;
+}
+
+/***************
+***** If cell already has a selection; indicate the selection isn't allowed.
+****************/
+.cell.x,
+.cell.o {
+	cursor: not-allowed;
+}
+
+/***************
+***** Success Message
+****************/
+.success-message {
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.88);
+	display: none;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	width: 100%;
+}
+
+.success-message > div {
+	color: white;
+	font-size: 3rem;
+	text-align: center;
+	margin-bottom: 2rem;
+}
+
+.success-message button {
+	font-size: 1.3rem;
+	background-color: lightpink;
+	border: 1px solid black;
+	padding: 12px 24px;
+	border-radius: 8px;
+	transform: translateY(0);
+	transition: 0.3s ease-out;
+}
+
+.success-message button:hover {
+	transform: translateY(-3px) scale(1.05);
+	box-shadow: 0px 10px 30px -15px lightpink;
+}
+
+.success-message.show {
+	display: flex;
+}
