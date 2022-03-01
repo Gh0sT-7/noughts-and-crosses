@@ -15,12 +15,12 @@ const SUCESS_COMBOS = [
 	[2, 4, 6],
 ];
 
-let turn;
+let playerTurn;
 
 restartButton.addEventListener('click', startGame);
 
 function startGame() {
-	turn = false;
+	playerTurn = false;
 	cellElements.forEach((cell) => {
 		cell.classList.remove(O_CLASS);
 		cell.classList.remove(X_CLASS);
@@ -33,7 +33,8 @@ function startGame() {
 
 function handleClick(event) {
 	const cell = event.target;
-	const currentClass = turn ? O_CLASS : X_CLASS;
+	playerTurn = !playerTurn;
+	const currentClass = playerTurn ? O_CLASS : X_CLASS;
 	markCell(cell, currentClass);
 
 	if (checkWinner(currentClass)) {
@@ -51,15 +52,15 @@ function markCell(cell, currentClass) {
 	cell.classList.add(currentClass);
 }
 
-function swapTurns() {
-	turn = !turn;
+function swapTurns(playerTurn) {
+	return !playerTurn;
 }
 
 function setBoardHoverClass() {
 	board.classList.remove(X_CLASS);
 	board.classList.remove(O_CLASS);
 
-	if (turn) {
+	if (!playerTurn) {
 		board.classList.add(O_CLASS);
 	} else {
 		board.classList.add(X_CLASS);
@@ -84,7 +85,7 @@ function endGame(draw) {
 	if (draw) {
 		sucessMessageText.innerText = `Draw!`;
 	} else {
-		sucessMessageText.innerText = `${turn ? "O's" : "X's"} Wins!`;
+		sucessMessageText.innerText = `${playerTurn ? "O's" : "X's"} Wins!`;
 	}
 	successMessage.classList.add('show');
 }
